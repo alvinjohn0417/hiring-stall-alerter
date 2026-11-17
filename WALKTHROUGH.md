@@ -1,22 +1,14 @@
-# Step-by-step walkthrough (Windows)
+# Reproducing the Hiring Stall Alerter Demo (Windows)
 
-You can follow this even if you have not written Python code before.
+This guide provides a repeatable local demonstration of the application and its reference results. The application runs locally; it is not hosted on a public server.
 
-## Step 1 — Download and unzip the project
+## 1. Prepare the environment
 
-Download `stall_alerter_project.zip` from ChatGPT and right-click it in File Explorer > **Extract All**. Open the extracted `stall_alerter_project` folder.
+Install Python 3.11 or newer; the recorded local verification used Python 3.13 on Windows. Download or clone this repository and open the project directory.
 
-**What you have:** `app.py` creates the dashboard; `engine.py` contains the detection rules; `sample_hiring_board.csv` is fictional input data; `tests/` checks calculations. See the README for every file.
+Launch **`start_windows.bat`**. On first run, the launcher creates a virtual environment named `.venv` and installs the dependencies in `requirements.txt`.
 
-## Step 2 — Install Python (once per computer)
-
-If Python is already installed, you can skip this. Otherwise install Python 3.11 or newer from https://www.python.org/downloads/. On Windows, select **Add Python to PATH** during setup if prompted. Restart your terminal after installation.
-
-## Step 3 — Launch the app
-
-Double-click `start_windows.bat` in the project folder. On first run, it creates an isolated `.venv` environment and installs Streamlit/Pandas. Internet is needed to install these packages. Keep the black console window open.
-
-If the launcher doesn't work, open Windows Terminal or PowerShell in this folder and paste these commands one at a time:
+To start manually in PowerShell from the project directory:
 
 ```powershell
 py -m venv .venv
@@ -24,39 +16,56 @@ py -m venv .venv
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-If `py` isn't recognized, use `python -m venv .venv` instead. Streamlit should open in your browser at `http://localhost:8501`.
+The Streamlit interface will usually open automatically. Otherwise, visit `http://localhost:8501` and keep the application terminal open.
 
-## Step 4 — Run the first experiment
+## 2. Reproduce the reference result
 
-- Keep **Try example data** selected.
-- In the sidebar, set **Analyze as of = 2026-11-17**.
-- Set **Flag after this many days = 7**.
-- Review the four metrics and the ranked follow-up queue. A reference CSV is in `sample_followup_report.csv`.
-- Move the slider to 10. The number of alerts should change.
-- Move the slider back to 7, use the priority filter, and download the CSV report.
+1. Select **Try example data**.
+2. Set **Analyze as of** to **2026-11-17**.
+3. Set **Flag after this many days** to **7**.
+4. Compare the dashboard with the reference values below.
 
-**What just happened:** Each `last_stage_change` date was subtracted from the selected analysis date. Only active candidates at or over the threshold were flagged. A transparent rule assigned each priority and next action.
+| Dashboard metric | Reference result |
+|---|---:|
+| Valid candidates | 25 |
+| Active candidates | 22 |
+| Flagged to follow up | 15 |
+| Urgent | 6 |
 
-## Step 5 — Try your own data
+The reference screenshot is stored at `docs/dashboard.png`. The CSV export for the same settings is available in `sample_followup_report.csv`.
 
-Select **Upload a CSV**, then upload `sample_hiring_board.csv` first. It should show the same result. For your own example, copy the sample and change a few dates, stages and names. Save as CSV UTF-8 in Excel.
+## 3. Examine filtering and export
 
-### Try an intentional error
+- Change the threshold to **10 days** and verify that fewer candidates are flagged. Restore it to **7 days**.
+- Search for **Maria Santos**. Clear the search and use the priority filter.
+- Select **Download prioritized follow-up CSV** and inspect the exported rows.
 
-In a copy of the CSV, change one `last_stage_change` value to `not-a-date`. Upload it. The dashboard should show a warning explaining which row was skipped.
+These three functional checks were completed during the initial Windows walkthrough.
 
-## Step 6 — Check the calculations
+## 4. Test an invalid row
 
-Open Windows Terminal/PowerShell inside the same project folder and run:
+Create a copy of `sample_hiring_board.csv` and replace one `last_stage_change` value with `not-a-date`. Choose **Upload a CSV** and select that modified file.
+
+The application is designed to skip the invalid row and show a warning. This is a reproducible test scenario, **not** a claim that this specific upload scenario was manually demonstrated. The automated test suite separately checks invalid-date handling.
+
+## 5. Run the automated tests
+
+From PowerShell in the project directory, with the virtual environment installed:
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-The included automated tests cover dates, thresholds, closed candidates, priority ordering, duplicate IDs, and bad input. Take a screenshot of the results for your quest.
+The included suite covers date parsing, duplicate IDs, missing values, future dates, thresholds, terminal stages, priority ordering, stage-specific actions, and export fields. **14 automated tests passed** in the assistant's project environment during development.
 
-## Step 7 — Your AI-first learning evidence
+## 6. How results are generated
 
-As you test, paste your actual errors or proposed improvements into ChatGPT and ask for one change at a time. Record your real prompt, proposed code, test result, and whether you accepted the change. Use `AI_BUILD_LOG.md` as a journal, then record the separate tool Loom and the career-leverage Loom required by the quest.
+The pipeline follows fixed, inspectable steps:
 
-**Privacy:** Use invented candidate data for the demo. This prototype does not send messages, alter a hiring system, or contact an external AI service.
+```text
+CSV input → validation → active-stage filtering
+→ days-in-stage calculation → priority assignment
+→ reason and suggested next action → human review / CSV export
+```
+
+No LLM is called when the app analyzes CSV data. ChatGPT assisted with development; the live application relies on Python business rules. The sample candidates are fictional. No candidate messages are sent and no external hiring records are changed.
