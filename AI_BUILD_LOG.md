@@ -1,7 +1,5 @@
 # AI-first build log — Hiring Stall Alerter (Option C)
 
-> Purpose: accurately document how AI helped produce a working tool. Distinguish verified evidence from suggested next steps; do not invent iterations or claim manual coding that did not happen.
-
 ## Challenge objective
 
 Build a small tool within five days that reads a hiring-board CSV, finds candidates who have not progressed for a set number of days, and lists whom to follow up first and what to do. The challenge emphasizes a changed working method through effective AI use.
@@ -14,11 +12,9 @@ Build a small tool within five days that reads a hiring-board CSV, finds candida
 | 2026-11-17 | Asked ChatGPT to start building immediately and explain the steps. ChatGPT generated a Python application, calculation engine, 25-row fictional CSV, test file, and Windows launcher. | Original code files in this repository. |
 | 2026-11-17 | Launched locally with **Python 3.13**. Package installation completed and the Streamlit browser page opened. | Local console screenshot shared during walkthrough. |
 | 2026-11-17 | Tested with analysis date **2026-11-17** and **7-day threshold**. | Actual dashboard showed 25 valid, 22 active, 15 stalled, 6 urgent. See `docs/dashboard.png`. |
-| 2026-11-17 | Tested threshold change, candidate search/filter, and CSV download/opening. | User reported **all three manual tests passed**. |
-| 2026-11-17 | Re-ran automated unit tests from the project folder. | **14 tests passed** (`python -m unittest discover -s tests -v`). |
-| 2026-11-17 | Updated README and build log to reflect verified results rather than placeholder claims. | `README.md` and this file. |
-
-**Not yet verified or completed:** GitHub upload, quest demo Loom, separate career video, final submission; do not list these as accomplished until finished.
+| 2026-11-17 | Tested threshold change, candidate search/filter, and CSV download/opening on Windows. | **All three manual tests passed.** |
+| 2026-11-17 | ChatGPT's project environment executed the automated engine tests. | **14 tests passed** (`python -m unittest discover -s tests -v`). These are separate from the local UI checks. |
+| 2026-11-17 | Published the project to GitHub, removed an accidentally duplicated directory, and reviewed the documentation. | [Public repository](https://github.com/alvinjohn0417/hiring-stall-alerter). |
 
 ## How AI changed the workflow
 
@@ -35,27 +31,24 @@ Build a small tool within five days that reads a hiring-board CSV, finds candida
 - “i have python 3.13” — led to guidance using the already installed Python version.
 - Later messages shared the running console and app screenshot and confirmed three functional tests passed.
 
-These are examples of **actual** collaboration with ChatGPT. For your Loom, open the conversation if you want to demonstrate the real prompt-to-code workflow rather than inventing a prompt history.
+These are examples of **actual** collaboration with ChatGPT, rather than reconstructed prompts or additional work that did not occur.
 
-## Evidence to keep for submission
+## Technical decisions and safeguards
 
-- [x] Working dashboard with expected sample metrics: `docs/dashboard.png`.
-- [x] User confirmation of three manual UI tests (threshold, search/filter, CSV export).
-- [x] Automated engine tests: 14/14 passing in the project workspace.
-- [ ] Optional: capture your *own* Windows terminal running the test command.
-- [ ] Optional: test and record an invalid-date upload in the UI.
-- [ ] Publish the GitHub repository and save its public link.
-- [ ] Record tool demo Loom and explain the design, actual AI usage, tests, and limitations.
-- [ ] Record separate career path / career leverage / quest connection video (max 5 minutes).
+The running application uses Python to validate hiring-board data, calculate days in stage, and rank follow-ups using visible business rules. Streamlit provides the interface for filtering and exporting reports.
 
-## Reflection you can adapt in your own words
+AI assisted development but does not analyze candidate records at runtime. Suggested actions are based on hiring stages and require human review. All example candidate records are fictional, and the app neither sends messages nor changes an applicant-tracking system.
 
-> Rather than building another visual automation, I used ChatGPT as a coding partner to create a Python and Streamlit application. I provided the business objective and tested the result locally. The tool reads fictional CSV data, calculates days in stage, applies clear priorities, and produces a human-reviewed follow-up queue. I learned the importance of checking AI-generated code against concrete expected results instead of assuming the first answer works. This tool runs without a paid AI API because its actual detection logic should be transparent and reproducible.
+## Verification summary
 
-## Next technical experiments (not yet done)
+| Check | Result |
+|---|---|
+| Python 3.13 + Streamlit local startup | Passed |
+| Sample data, 2026-11-17, 7-day limit | 25 valid / 22 active / 15 stalled / 6 urgent |
+| Manual UI tests | Threshold, search/filter, and CSV export passed |
+| Automated engine tests | 14 passed in the assistant's project environment |
+| Public GitHub repository | Published |
 
-1. Upload a sample row with an invalid date and confirm the warning is specific and understandable.
-2. Ask AI to propose new tests for unusual stage names, extra columns, and threshold boundaries.
-3. If time allows, add configurable stall limits by hiring stage, with a new automated test.
+## Reflection
 
-Keep future entries factual: write down the prompt, proposed change, any error, whether you accepted it, and the observed test result.
+Rather than building another visual automation, I used ChatGPT as a coding assistant to create a Python and Streamlit application. I supplied the objective, ran the application locally, checked the example results, and tested the main interactions. I learned to verify AI-generated software against concrete outputs rather than assuming generated code works. The finished prototype uses auditable rules and keeps hiring decisions with people.
