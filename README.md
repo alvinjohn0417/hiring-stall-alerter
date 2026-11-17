@@ -1,5 +1,7 @@
 # Hiring Stall Alerter
 
+[![Reviewer verification](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml/badge.svg)](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml)
+
 **A CSV-based hiring pipeline follow-up dashboard, built with ChatGPT-assisted Python and Streamlit.**
 
 The app finds candidates who have stayed in an *active* hiring stage at or beyond a chosen threshold, orders the follow-up queue by clear rules, explains each flag, and recommends a next step for a recruiter to review. It does **not** make hiring decisions or send messages.
