@@ -1,0 +1,8 @@
+candidate_id,candidate_name,role,stage,last_stage_change,owner
+SEC01,=1+1,QA Test,Interview,2026-11-01,Reviewer
+SEC02,+1+1,QA Test,Interview,2026-11-01,Reviewer
+SEC03,-1+1,QA Test,Interview,2026-11-01,Reviewer
+SEC04,"@SUM(1,1)",QA Test,Interview,2026-11-01,Reviewer
+SEC05,  =1+1,QA Test,Interview,2026-11-01,Reviewer
+SEC06,＝1+1,QA Test,Interview,2026-11-01,Reviewer
+SEC07,"=""1,2""",QA Test,Interview,2026-11-01,Reviewer
