@@ -2,9 +2,11 @@
 
 **A CSV-based hiring pipeline follow-up dashboard, built with ChatGPT-assisted Python and Streamlit.**
 
-The app finds candidates who have stayed in an *active* hiring stage longer than a chosen threshold, orders the follow-up queue by clear rules, explains each flag, and recommends a next step for a recruiter to review. It does **not** make hiring decisions or send messages.
+The app finds candidates who have stayed in an *active* hiring stage at or beyond a chosen threshold, orders the follow-up queue by clear rules, explains each flag, and recommends a next step for a recruiter to review. It does **not** make hiring decisions or send messages.
 
 ![Hiring Stall Alerter dashboard, using fictional candidates](docs/dashboard.png)
+
+*Partial screenshot of the locally verified dashboard (scrolled view).*
 
 ## Demo result
 
@@ -117,8 +119,7 @@ Within each priority group, the app orders candidates by days beyond the limit, 
 | `tests/test_engine.py` | Automated tests of the core logic |
 | `start_windows.bat` | Windows launcher |
 | `AI_BUILD_LOG.md` | Actual AI-assisted development and testing record |
-| `SUBMISSION_CHECKLIST.md` | Outstanding quest and video submission tasks |
-| `WALKTHROUGH.md` | Beginner-friendly local setup |
+| `WALKTHROUGH.md` | Reproducible local demo and test procedure |
 | `docs/dashboard.png` | Screenshot of the locally verified dashboard |
 
 ## Run the automated tests
@@ -129,13 +130,13 @@ From inside this project directory:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-**14 automated tests passed** in the project workspace, covering CSV validation, dates, threshold boundaries, closed stages, ordering, actions, and export fields. The user separately confirmed three manual UI tests passed: threshold adjustment, search/filter, and export.
+**14 automated engine tests passed** in the assistant's project environment, covering CSV validation, dates, threshold boundaries, closed stages, ordering, actions, and export fields. Three manual UI checks were also completed on Windows: threshold adjustment, search/filter, and CSV export.
 
 ## AI-first approach
 
 ChatGPT was used to break down the task, generate the first Python/Streamlit codebase and tests, explain local setup, interpret actual screenshots, and plan validation. **AI assisted development; AI does not decide the runtime results.** This was an intentional shift from visual workflow-building toward a standalone, AI-assisted coded application.
 
-Read [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) for the verified timeline, evidence, and reflection prompts. Only actual work and outcomes should be described as completed in the quest submission.
+The [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) records the development timeline, the respective roles of ChatGPT and the developer, and the results that were verified.
 
 ## Limitations and safety
 
