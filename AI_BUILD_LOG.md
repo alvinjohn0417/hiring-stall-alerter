@@ -16,6 +16,15 @@ Build a small tool within five days that reads a hiring-board CSV, finds candida
 | 2026-11-17 | ChatGPT's project environment executed the automated engine tests. | **14 tests passed** (`python -m unittest discover -s tests -v`). These are separate from the local UI checks. |
 | 2026-11-17 | Published the project to GitHub, removed an accidentally duplicated directory, and reviewed the documentation. | [Public repository](https://github.com/alvinjohn0417/hiring-stall-alerter). |
 
+## Follow-up engineering iteration — export security and CI
+
+| 2026-11-17 | Reviewed the CSV export for spreadsheet formula interpretation risk. A harmless candidate value `=1+1` remained formula-like in the original raw pandas CSV output. | Reproduced with a CSV export sample; this establishes an unsafe raw value, not execution in Excel. |
+| 2026-11-17 | Used ChatGPT to add a separate CSV export safety module, a seven-test regression suite, and an automated reviewer check. | `csv_export.py`, `tests/test_csv_export.py`, `scripts/reviewer_check.py`. |
+| 2026-11-17 | First run of the standalone reviewer check raised `ModuleNotFoundError: No module named 'csv_export'`. The script was adjusted to load the repository root before importing. | After correction, **21 local automated tests passed**, and the scripted reference check passed with 25 valid / 22 active / 15 stalled / 6 urgent. |
+| 2026-11-17 | Added a GitHub Actions workflow which can also be triggered manually by reviewers. | `.github/workflows/reviewer-verification.yml`; GitHub-run outcome reported separately. |
+
+The CSV fix applies a tab prefix to formula-like cells only in downloaded spreadsheet CSVs. It does not alter candidates shown in the application or change ranking calculations. This is an Excel-oriented defense-in-depth measure, **not a claim of universal spreadsheet safety**. The automated checks validate raw CSV contents; Excel save-and-reopen behavior remains subject to manual verification.
+
 ## How AI changed the workflow
 
 **Before:** My existing portfolio emphasized low-code integrations, APIs/webhooks and visual workflow builders such as n8n.
@@ -46,9 +55,9 @@ AI assisted development but does not analyze candidate records at runtime. Sugge
 | Python 3.13 + Streamlit local startup | Passed |
 | Sample data, 2026-11-17, 7-day limit | 25 valid / 22 active / 15 stalled / 6 urgent |
 | Manual UI tests | Threshold, search/filter, and CSV export passed |
-| Automated engine tests | 14 passed in the assistant's project environment |
-| Public GitHub repository | Published |
+| Automated tests | 21 passed in the assistant's project environment (14 original + 7 export regression tests) |
+| Public GitHub repository | Published, including reviewer-triggerable workflow |
 
 ## Reflection
 
-Rather than building another visual automation, I used ChatGPT as a coding assistant to create a Python and Streamlit application. I supplied the objective, ran the application locally, checked the example results, and tested the main interactions. I learned to verify AI-generated software against concrete outputs rather than assuming generated code works. The finished prototype uses auditable rules and keeps hiring decisions with people.
+Rather than building another visual automation, I used ChatGPT as a coding assistant to create a Python and Streamlit application. I supplied the objective, ran the application locally, checked the example results, and tested the main interactions. I learned to verify AI-generated software against concrete outputs rather than assuming generated code works. The finished prototype uses auditable rules and keeps hiring decisions with people. During the later review I was also able to use AI to investigate a CSV export risk, check the proposed protection with regression tests, and correct an import-path error revealed by the reviewer verification script.
