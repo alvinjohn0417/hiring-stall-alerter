@@ -18,6 +18,8 @@ Build a small tool within five days that reads a hiring-board CSV, finds candida
 
 ## Follow-up engineering iteration — export security and CI
 
+| Date | Engineering step | Observed result and evidence |
+|---|---|---|
 | 2026-11-17 | Reviewed the CSV export for spreadsheet formula interpretation risk. A harmless candidate value `=1+1` remained formula-like in the original raw pandas CSV output. | Reproduced with a CSV export sample; this establishes an unsafe raw value, not execution in Excel. |
 | 2026-11-17 | Used ChatGPT to add a separate CSV export safety module, a seven-test regression suite, and an automated reviewer check. | `csv_export.py`, `tests/test_csv_export.py`, `scripts/reviewer_check.py`. |
 | 2026-11-17 | First run of the standalone reviewer check raised `ModuleNotFoundError: No module named 'csv_export'`. The script was adjusted to load the repository root before importing. | After correction, **21 local automated tests passed**, and the scripted reference check passed with 25 valid / 22 active / 15 stalled / 6 urgent. |
