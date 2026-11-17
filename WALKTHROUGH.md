@@ -70,7 +70,7 @@ This demonstration uses benign formulas only. The application does not evaluate 
 
 ## 7. Trigger the public reviewer checks
 
-Visit [Reviewer verification in GitHub Actions](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml). Select **Run workflow** on branch `main`, then open the resulting run.
+Visit [Reviewer verification in GitHub Actions](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml) and open an existing run. Repository collaborators with write access can additionally select **Run workflow** on branch `main` to start a new run; public read-only reviewers can inspect previous results.
 
 - A successful run means the syntax check, 21 Python tests, reference metrics, and exported CSV checks passed.
 - Open the run's **Summary** tab for the reference scenario results.
