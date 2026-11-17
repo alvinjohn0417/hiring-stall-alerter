@@ -1,0 +1,26 @@
+candidate_id,candidate_name,role,stage,last_stage_change,owner
+C001,Maria Santos,AI Engineer,Interview,2026-11-03,Alex Reyes
+C002,John Dela Cruz,Automation Specialist,Assessment,2026-11-08,Jamie Lim
+C003,Ana Navarro,Support Specialist,Screening,2026-11-14,Robin Cruz
+C004,Leo Mendoza,AI Engineer,Offer,2026-11-05,Alex Reyes
+C005,Nina Villanueva,Recruitment Coordinator,Applied,2026-10-30,Jamie Lim
+C006,Paolo Garcia,Data Analyst,Final Interview,2026-11-09,Robin Cruz
+C007,Bianca Ramos,Customer Support Agent,Interview,2026-11-10,Jamie Lim
+C008,Miguel Santos,Operations Associate,Assessment,2026-11-15,Alex Reyes
+C009,Sofia Villareal,Data Analyst,Applied,2026-11-12,Robin Cruz
+C010,Rafael Sy,AI Engineer,Offer,2026-11-13,Alex Reyes
+C011,Chloe Fernandez,Automation Specialist,Hired,2026-10-22,Jamie Lim
+C012,Ethan Torres,Customer Support Agent,Rejected,2026-10-28,Robin Cruz
+C013,Isabela Cruz,Data Analyst,Interview,2026-11-06,Alex Reyes
+C014,Carlo Bautista,Support Specialist,Screening,2026-10-26,Robin Cruz
+C015,Jasmine Uy,Recruitment Coordinator,Final Interview,2026-11-02,Jamie Lim
+C016,Noah Castillo,Operations Associate,Applied,2026-11-10,Alex Reyes
+C017,Ella Mercado,AI Engineer,Assessment,2026-11-01,Robin Cruz
+C018,Gabriel Tan,Customer Support Agent,Screening,2026-11-08,Jamie Lim
+C019,Kara Flores,Automation Specialist,Interview,2026-11-16,Alex Reyes
+C020,Dylan Chan,Data Analyst,Withdrawn,2026-10-18,Robin Cruz
+C021,Rina Lopez,Operations Associate,Offer,2026-11-10,Alex Reyes
+C022,Tomas Rivera,Recruitment Coordinator,Applied,2026-11-07,Jamie Lim
+C023,Hannah Chua,Support Specialist,Interview,2026-11-11,Robin Cruz
+C024,Liam Gonzales,Data Analyst,Assessment,2026-11-04,Alex Reyes
+C025,Zoe Velasco,Automation Specialist,Final Interview,2026-11-15,Jamie Lim
