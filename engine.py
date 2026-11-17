@@ -1,7 +1,7 @@
 """Pure-Python business rules for a small hiring-pipeline stall detector.
 
-No LLM or internet connection is required. Keep detection and prioritization
-reproducible; a reviewer can inspect every rule in this file.
+No LLM or internet connection is required. Detection and prioritization
+use explicit, reproducible rules.
 """
 
 from __future__ import annotations
