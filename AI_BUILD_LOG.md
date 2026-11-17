@@ -23,7 +23,7 @@ Build a small tool within five days that reads a hiring-board CSV, finds candida
 | 2026-11-17 | Reviewed the CSV export for spreadsheet formula interpretation risk. A harmless candidate value `=1+1` remained formula-like in the original raw pandas CSV output. | Reproduced with a CSV export sample; this establishes an unsafe raw value, not execution in Excel. |
 | 2026-11-17 | Used ChatGPT to add a separate CSV export safety module, a seven-test regression suite, and an automated reviewer check. | `csv_export.py`, `tests/test_csv_export.py`, `scripts/reviewer_check.py`. |
 | 2026-11-17 | First run of the standalone reviewer check raised `ModuleNotFoundError: No module named 'csv_export'`. The script was adjusted to load the repository root before importing. | After correction, **21 local automated tests passed**, and the scripted reference check passed with 25 valid / 22 active / 15 stalled / 6 urgent. |
-| 2026-11-17 | Added a GitHub Actions workflow which can also be triggered manually by reviewers. | `.github/workflows/reviewer-verification.yml`; GitHub-run outcome reported separately. |
+| 2026-11-17 | Added a GitHub Actions workflow for continuous verification; collaborators with write access can also run it manually. | [Successful workflow run](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/runs/44115746019), including tests, sample-data checks, and an uploaded report. |
 
 The CSV fix applies a tab prefix to formula-like cells only in downloaded spreadsheet CSVs. It does not alter candidates shown in the application or change ranking calculations. This is an Excel-oriented defense-in-depth measure, **not a claim of universal spreadsheet safety**. The automated checks validate raw CSV contents; Excel save-and-reopen behavior remains subject to manual verification.
 
@@ -40,7 +40,10 @@ The CSV fix applies a tab prefix to formula-like cells only in downloaded spread
 - “can I do that without claude code” — led to evaluation of ways to build using existing tools or ChatGPT-assisted Python.
 - “can we do it now and explain the steps to me.” — led to the first executable project with code and beginner-friendly instructions.
 - “i have python 3.13” — led to guidance using the already installed Python version.
-- Later messages shared the running console and app screenshot and confirmed three functional tests passed.
+- “for the AI build log, why is there instructions to the user” — prompted a rewrite of reviewer-facing documentation so the build log described actual project work rather than personal next steps.
+- “can you check all the files if there are similar cases. If any, edit them now. This will be viewed by reviewers.” — prompted a repository-wide documentation audit and revisions.
+- “Okay, do it. Upload or replace the current files in my repository if needed. And add an action that the reviewers can check. I will run tests to see if there will be revisions needed.” — prompted an export-security investigation, regression tests, and a GitHub Actions verification workflow.
+- “can you check it again. there are failed runs” — led to examination of historical CI logs and confirmation that early failures occurred before the verification script was committed.
 
 These are examples of **actual** collaboration with ChatGPT, rather than reconstructed prompts or additional work that did not occur.
 
@@ -58,7 +61,7 @@ AI assisted development but does not analyze candidate records at runtime. Sugge
 | Sample data, 2026-11-17, 7-day limit | 25 valid / 22 active / 15 stalled / 6 urgent |
 | Manual UI tests | Threshold, search/filter, and CSV export passed |
 | Automated tests | 21 passed in the assistant's project environment (14 original + 7 export regression tests) |
-| Public GitHub repository | Published, including reviewer-triggerable workflow |
+| Public GitHub repository | Published, with successful CI results accessible to reviewers; manual workflow dispatch requires write access |
 
 ## Reflection
 
