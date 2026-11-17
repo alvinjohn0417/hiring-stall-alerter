@@ -1,0 +1,41 @@
+name: Reviewer verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Python tests and sample-data verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Syntax check
+        run: python -m compileall -q app.py engine.py csv_export.py tests scripts
+      - name: Automated unit and regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Verify sample data and safe CSV output
+        run: python scripts/reviewer_check.py
+      - name: Publish reviewer summary
+        run: cat reviewer_results/verification_report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload reviewer evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewer-verification-report
+          path: reviewer_results/
+          if-no-files-found: error
+          retention-days: 30
