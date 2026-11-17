@@ -7,6 +7,7 @@ import pandas as pd
 import streamlit as st
 
 from engine import assess_candidates, read_candidates, summarize
+from csv_export import export_followups_csv
 
 ROOT = Path(__file__).resolve().parent
 SAMPLE = ROOT / "sample_hiring_board.csv"
@@ -96,9 +97,10 @@ if search.strip():
 
 st.caption("Priority order is based on the explicit rules in the sidebar; the first row should be addressed first.")
 st.dataframe(shown, hide_index=True, use_container_width=True)
+st.caption("Spreadsheet safety: formula-like text in exported cells is neutralized for Excel-oriented viewing. Original values remain visible in the dashboard.")
 st.download_button(
     "⬇ Download prioritized follow-up CSV",
-    data=shown.to_csv(index=False).encode("utf-8-sig"),
+    data=export_followups_csv(shown.to_dict(orient="records")),
     file_name=f"hiring_stall_followups_{analysis_date.isoformat()}.csv",
     mime="text/csv",
     disabled=shown.empty,
