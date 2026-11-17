@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     name: Python tests and sample-data verification
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Check out project
@@ -33,7 +33,7 @@ jobs:
       - name: Publish reviewer summary
         run: cat reviewer_results/verification_report.md >> "$GITHUB_STEP_SUMMARY"
       - name: Upload reviewer evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: reviewer-verification-report
           path: reviewer_results/
