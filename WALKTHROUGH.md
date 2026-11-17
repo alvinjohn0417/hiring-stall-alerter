@@ -56,9 +56,30 @@ From PowerShell in the project directory, with the virtual environment installed
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-The included suite covers date parsing, duplicate IDs, missing values, future dates, thresholds, terminal stages, priority ordering, stage-specific actions, and export fields. **14 automated tests passed** in the assistant's project environment during development.
+The included suite covers date parsing, duplicate IDs, missing values, future dates, thresholds, terminal stages, priority ordering, stage-specific actions, and export fields. **21 automated tests passed** in the assistant's project environment during the export-security iteration (14 original + 7 regression tests).
 
-## 6. How results are generated
+## 6. Verify the spreadsheet export protection
+
+1. Set the analysis date to **2026-11-17**, with a **7-day threshold**.
+2. Choose **Upload a CSV** and select `sample_security_check.csv` (fictional, harmless spreadsheet-formula test data).
+3. Confirm that formula-like candidate names (for example `=1+1`) are displayed in the application, and that all seven test records are flagged.
+4. Download the prioritized follow-up CSV. Inspect the **raw CSV in a text editor**: formula-like fields should have a tab character as a prefix inside quoted CSV cells.
+5. If using Excel, also test the **opened file and an Excel save/re-open cycle**. Spreadsheet applications vary, and an automated CSV-content test alone does not prove that a particular Excel import workflow is safe.
+
+This demonstration uses benign formulas only. The application does not evaluate or execute candidate values; the export mitigation is a defense-in-depth measure.
+
+## 7. Trigger the public reviewer checks
+
+Visit [Reviewer verification in GitHub Actions](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml). Select **Run workflow** on branch `main`, then open the resulting run.
+
+- A successful run means the syntax check, 21 Python tests, reference metrics, and exported CSV checks passed.
+- Open the run's **Summary** tab for the reference scenario results.
+- Download the `reviewer-verification-report` artifact to inspect the verification report and generated CSVs.
+
+A manual workflow run is not required to browse the existing public verification results.
+
+## 8. How results are generated
+
 
 The pipeline follows fixed, inspectable steps:
 
