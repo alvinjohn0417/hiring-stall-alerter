@@ -150,7 +150,7 @@ The [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) records the development timeline, the r
 
 The [Reviewer verification workflow](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml) runs on pushes, pull requests, and manual invocation. It executes the Python tests and a reproducible sample-data check. Its **Summary** tab contains the generated reference metrics; the **Artifacts** section contains a reference follow-up CSV, a harmless formula-input export, and a Markdown verification report.
 
-To run it without installing Python: open the workflow link, choose **Run workflow**, select `main`, then inspect the run's summary and its downloadable `reviewer-verification-report` artifact. A green status means automated checks passed; it does **not** certify how Microsoft Excel handles cells after a save-and-reopen cycle.
+Reviewers can inspect past runs and their public **Summary** results from the workflow link without installing Python. Repository collaborators with **write access** may also choose **Run workflow** on `main` to start a new run. A green status means automated checks passed; it does **not** certify how Microsoft Excel handles cells after a save-and-reopen cycle.
 
 The fictional `sample_security_check.csv` can be uploaded in the application to exercise formula-like names. The dashboard intentionally shows the original text. The **downloaded** CSV neutralizes formula-like cells for Excel-oriented viewing; manual Excel testing is still appropriate.
 
