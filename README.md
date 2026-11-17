@@ -119,7 +119,7 @@ Within each priority group, the app orders candidates by days beyond the limit, 
 | `sample_security_check.csv` | Fictional formula-like candidate names for manual export testing |
 | `tests/test_csv_export.py` | Export encoding and spreadsheet formula safety regression tests |
 | `scripts/reviewer_check.py` | Reference scenario verification and report generation |
-| `.github/workflows/reviewer-verification.yml` | GitHub Actions reviewer-triggerable tests and evidence report |
+| `.github/workflows/reviewer-verification.yml` | GitHub Actions tests and evidence report; manual reruns require write access |
 | `engine.py` | CSV checks, date calculations, priorities, actions |
 | `sample_hiring_board.csv` | Fictional sample hiring board |
 | `sample_followup_report.csv` | Reference output for the 2026-11-17 example |
@@ -144,7 +144,6 @@ From inside this project directory:
 ChatGPT was used to break down the task, generate the first Python/Streamlit codebase and tests, explain local setup, interpret actual screenshots, and plan validation. **AI assisted development; AI does not decide the runtime results.** This was an intentional shift from visual workflow-building toward a standalone, AI-assisted coded application.
 
 The [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) records the development timeline, the respective roles of ChatGPT and the developer, and the results that were verified.
-
 
 ## Reviewer verification — GitHub Actions
 
