@@ -29,7 +29,7 @@ These values were verified on a Windows PC running **Python 3.13** and Streamlit
 - Flag stalled candidates, explain *why*, and rank them Urgent / High / Follow up.
 - Provide a stage-specific next action for **human review**.
 - Search by candidate, role, owner, or stage; filter by priority.
-- Download the displayed follow-up queue as CSV.
+- Download the displayed follow-up queue as spreadsheet-oriented CSV, with formula-like text neutralized in export.
 - Warn about malformed input, invalid/future dates, and duplicate candidate IDs.
 
 ## Quick start: Windows
@@ -113,6 +113,11 @@ Within each priority group, the app orders candidates by days beyond the limit, 
 | File | Purpose |
 |---|---|
 | `app.py` | Streamlit user interface |
+| `csv_export.py` | Spreadsheet-oriented CSV export safety boundary |
+| `sample_security_check.csv` | Fictional formula-like candidate names for manual export testing |
+| `tests/test_csv_export.py` | Export encoding and spreadsheet formula safety regression tests |
+| `scripts/reviewer_check.py` | Reference scenario verification and report generation |
+| `.github/workflows/reviewer-verification.yml` | GitHub Actions reviewer-triggerable tests and evidence report |
 | `engine.py` | CSV checks, date calculations, priorities, actions |
 | `sample_hiring_board.csv` | Fictional sample hiring board |
 | `sample_followup_report.csv` | Reference output for the 2026-11-17 example |
@@ -130,7 +135,7 @@ From inside this project directory:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-**14 automated engine tests passed** in the assistant's project environment, covering CSV validation, dates, threshold boundaries, closed stages, ordering, actions, and export fields. Three manual UI checks were also completed on Windows: threshold adjustment, search/filter, and CSV export.
+**21 automated tests passed in the development environment**: 14 original engine tests plus 7 CSV export regression tests. The reviewer workflow re-runs these tests and verifies the sample data. Three original manual UI checks were completed on Windows: threshold adjustment, search/filter, and CSV export. The updated spreadsheet-safety behavior still requires manual Excel testing.
 
 ## AI-first approach
 
@@ -138,12 +143,26 @@ ChatGPT was used to break down the task, generate the first Python/Streamlit cod
 
 The [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) records the development timeline, the respective roles of ChatGPT and the developer, and the results that were verified.
 
+
+## Reviewer verification — GitHub Actions
+
+The [Reviewer verification workflow](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml) runs on pushes, pull requests, and manual invocation. It executes the Python tests and a reproducible sample-data check. Its **Summary** tab contains the generated reference metrics; the **Artifacts** section contains a reference follow-up CSV, a harmless formula-input export, and a Markdown verification report.
+
+To run it without installing Python: open the workflow link, choose **Run workflow**, select `main`, then inspect the run's summary and its downloadable `reviewer-verification-report` artifact. A green status means automated checks passed; it does **not** certify how Microsoft Excel handles cells after a save-and-reopen cycle.
+
+The fictional `sample_security_check.csv` can be uploaded in the application to exercise formula-like names. The dashboard intentionally shows the original text. The **downloaded** CSV neutralizes formula-like cells for Excel-oriented viewing; manual Excel testing is still appropriate.
+
+### AI-assisted engineering iteration
+
+A review of the original CSV export identified a potential spreadsheet formula interpretation issue: values such as `=1+1` passed through the raw export as-is. ChatGPT assisted in moving export formatting into a separately testable `csv_export.py` module and adding seven regression tests. The detection engine and candidate priority rules were left unchanged. A development-time import-path error in `scripts/reviewer_check.py` was corrected, after which 21 tests and the sample-data check passed locally. See `AI_BUILD_LOG.md` for this actual iteration.
+
 ## Limitations and safety
 
 - CSV import only; no live applicant-tracking-system integration.
 - A stage's inactivity is measured solely from `last_stage_change`.
 - No emails are drafted/sent, no ATS records are modified, and no hiring decisions are automated.
 - Rules are fixed in code and should be reviewed against each organization's recruiting policy.
+- Exported spreadsheet CSVs prefix formula-like text with an embedded tab as a defense-in-depth measure. Spreadsheet importers differ; there is no guarantee against every re-save/re-import interpretation. This mitigation does not replace organizational data-handling controls.
 - Use invented or authorized candidate records; do not publish private applicant information.
 
 This is an educational prototype for operational follow-up, not a candidate suitability/ranking system.
