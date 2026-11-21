@@ -129,6 +129,20 @@ Within each priority group, the app orders candidates by days beyond the limit, 
 | `WALKTHROUGH.md` | Reproducible local demo and test procedure |
 | `docs/dashboard.png` | Screenshot of the locally verified dashboard |
 
+## Quest documentation
+
+The following artifacts accompany the working source code:
+
+| Document | Purpose |
+|---|---|
+| [`intent.md`](intent.md) | Retrospective statement of problem, scope, success criteria, and AI-first intent |
+| [`Final directive.md`](Final%20directive.md) | Current engineering handoff directive and safeguards |
+| [`FIVE_DAY_LOG.md`](FIVE_DAY_LOG.md) | Five checkpoint entries with actual activity dates, transparently noting the accelerated build |
+| [`UNLEARNED.md`](UNLEARNED.md) | One-page reflection on working-method changes and remaining gaps |
+| [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) | Detailed observed prompts, tests, failures, and corrections |
+
+The challenge also requires two **separate** recordings: a tool demonstration (maximum five minutes) and a career path/career leverage video (maximum five minutes). These are submitted as video links, not part of the executable source.
+
 ## Run the automated tests
 
 From inside this project directory:
