@@ -1,7 +1,5 @@
 # What I Unlearned — Hiring Stall Alerter
 
-*One-page reflection on my AI-first working method*
-
 Before this challenge, much of my independent automation work used visual platforms such as n8n, Make, and Zapier. I was comfortable mapping inputs, conditions, integrations, and outputs, but I had not built a standalone Python application. My first instinct was to compare AI coding tools and wonder whether I needed Claude Code or a stronger programming background before I could start.
 
 **The first assumption I had to let go of was that I needed to know the language before I could attempt the tool.** I used ChatGPT to propose the application structure, generate Python and Streamlit code, and explain how to run it. That let me move from a business objective to a working local application without claiming to be an experienced Python developer.
