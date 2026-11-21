@@ -73,4 +73,4 @@
 
 ## Submission update — November 21, 2026
 
-The tool demonstration Loom was provided after the original log entry and is now linked in the [README's video section](README.md#video-links): [Hiring Stall Alerter tool demo](https://www.loom.com/share/7b299434f9ef4320930fe414faeaf813). The separate career path and career leverage video has not yet been supplied. This update preserves the original Day 5 status as a record of what was known at that time.
+The tool demonstration Loom was provided after the original log entry and is now linked in the [README's video section](README.md#video-links): [Hiring Stall Alerter tool demo](https://www.loom.com/share/7b299434f9ef4320930fe414faeaf813). The separate [Career Path & Career Leverage video](https://www.loom.com/share/3b9dd12fd1884f55b2ef71f86d28b761) was subsequently supplied and added to the README. Both required video links are now listed. This update preserves the original Day 5 status as a record of what was known at that time.
