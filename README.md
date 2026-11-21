@@ -153,7 +153,7 @@ Both videos have a **five-minute maximum**.
 | Video | Link |
 |---|---|
 | Quest Loom: tool demonstration | [Watch the Hiring Stall Alerter demo](https://www.loom.com/share/7b299434f9ef4320930fe414faeaf813) |
-| Career path & career leverage | Recording pending; link will be added once available |
+| Career path & career leverage | [Watch the Career Path & Career Leverage video](https://www.loom.com/share/3b9dd12fd1884f55b2ef71f86d28b761) |
 
 ## Run the automated tests
 
