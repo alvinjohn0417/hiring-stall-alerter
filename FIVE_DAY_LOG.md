@@ -1,37 +1,72 @@
-# Five-day quest log — factual record
+# Five-Day Quest Log — Hiring Stall Alerter (Option C)
 
-The quest asks for a short entry for each of five days. **Development was accelerated:** the documented code-building, local testing, GitHub publication, security improvements, and CI work occurred on **2026-11-17**, rather than on five separate calendar days. The five entries below describe the five work checkpoints retrospectively; they do **not** pretend that one stage was completed on each consecutive date. A final deliverables review took place on **2026-11-21**.
+**Timeline note:** This is a retrospective log prepared on **November 21, 2026**. The working application, initial tests, GitHub publication, and security/CI improvements were completed on **November 17, 2026**, using an accelerated schedule. The five entries below are **project checkpoints**, not claims of work performed on five separate consecutive calendar days.
 
-## Day 1 checkpoint — Problem and intended outcome (2026-11-17)
+## Day 1 — Define the problem and choose the approach
+**Actual date: November 17, 2026**
 
-Selected Option C, the Hiring Stall Alerter. Defined the core task as checking active hiring-board records for prolonged time in a stage and prioritizing recruiter follow-up. Chose ChatGPT-assisted Python + Streamlit instead of using only familiar no-code/low-code tools.
+**Goal:** Create a small tool that helps recruiters notice candidates who have spent too long in the same hiring stage.
 
-**Evidence:** Conversation prompts, `intent.md`, initial repository source.
+**What I did:** I selected Option C and defined the input as a hiring-board CSV, with an analysis date and configurable stall threshold. I chose to move beyond familiar visual automation platforms and try ChatGPT-assisted Python and Streamlit, despite having no prior Python development background.
 
-## Day 2 checkpoint — First working tool (2026-11-17, accelerated)
+**How I used AI:** I discussed whether Claude Code was necessary and used ChatGPT to compare implementation options and translate the business problem into an application scope.
 
-ChatGPT generated the initial Streamlit dashboard, Python engine, sample CSV, launcher, and tests. The app launched locally on Windows with Python 3.13. With the reference date and threshold it showed 25 valid candidates, 22 active, 15 stalled, and 6 urgent.
+**Outcome / lesson:** A narrowly defined task was sufficient to start building with an unfamiliar programming language.
 
-**Evidence:** `app.py`, `engine.py`, `sample_hiring_board.csv`, `docs/dashboard.png`.
+**Evidence:** [Project intent](intent.md) · [Initial project files](app.py)
 
-## Day 3 checkpoint — Manual verification (2026-11-17, accelerated)
+## Day 2 — Build and run the first working version
+**Actual date: November 17, 2026 (accelerated)**
 
-Tested threshold adjustment, candidate search/filter, and CSV export on the local dashboard; all three were reported as passing. The original 14 automated engine tests passed in the development environment. Published the project to GitHub and removed an accidental duplicate directory.
+**Goal:** Turn the requirements into a usable application.
 
-**Evidence:** `tests/test_engine.py`, `README.md`, public GitHub history.
+**What I did:** I asked ChatGPT to build the tool immediately and explain each step. ChatGPT generated the initial Python engine, Streamlit dashboard, fictional candidate CSV, tests, and Windows launcher. I launched it locally using Python 3.13 and checked its output.
 
-## Day 4 checkpoint — Security and CI revision (2026-11-17, accelerated)
+**How I used AI:** ChatGPT generated and explained the code; I followed the setup steps and validated the running dashboard.
 
-Investigated formula-like values in downloaded CSVs. Added an export-specific mitigation and seven regression tests, bringing the suite to 21. Added a reviewer verification script and GitHub Actions. Early CI failures occurred when the workflow was pushed before its script; after completing the files and correcting an import-path error, full verification passed.
+**Outcome / lesson:** With an analysis date of November 17 and a seven-day threshold, the dashboard showed **25 valid candidates, 22 active, 15 stalled, and 6 urgent**. AI-assisted generation still required real-world verification.
 
-**Evidence:** `csv_export.py`, `tests/test_csv_export.py`, `scripts/reviewer_check.py`, `AI_BUILD_LOG.md`, and [passing Actions run](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/runs/44113298195).
+**Evidence:** [Dashboard screenshot](docs/dashboard.png) · [Business logic](engine.py) · [Sample data](sample_hiring_board.csv)
 
-## Day 5 checkpoint — Submission-readiness review (2026-11-21)
+## Day 3 — Validate the behavior and publish the code
+**Actual date: November 17, 2026 (accelerated)**
 
-Rechecked the full deliverables list. Confirmed working code, public README, and automated evidence. Identified additional named requirements—`intent.md`, `Final directive.md`, five-day log, and one-page unlearning reflection—and prepared those documents. The tool and career videos were **not yet recorded** at the time of this entry.
+**Goal:** Confirm that the basic features work and make the project reviewable.
 
-**Evidence:** These files and the repository's revision history.
+**What I did:** I tested the threshold slider, candidate search/filter, and CSV download in the browser; all three manual checks passed. The original **14 engine tests** passed in the development environment. I published the project in a public GitHub repository and corrected an accidental duplicated directory.
 
-## What the compressed timeline means
+**How I used AI:** ChatGPT guided the testing process and prepared the initial README and development documentation. I reviewed the published files and requested corrections when some documentation contained user-facing instructions instead of reviewer-ready evidence.
 
-This was **not** five distinct, equally active development days. The activity is organized into five checkpoints for review while preserving the actual dates. If the evaluator requires contemporaneous logs from five separate days, this retrospective log does not substitute for them.
+**Outcome / lesson:** A successful screen is not sufficient; test results, reproducible setup, and accurate documentation also matter.
+
+**Evidence:** [Original engine tests](tests/test_engine.py) · [README](README.md) · [GitHub repository](https://github.com/alvinjohn0417/hiring-stall-alerter)
+
+## Day 4 — Improve security and automate verification
+**Actual date: November 17, 2026 (accelerated)**
+
+**Goal:** Demonstrate an engineering improvement beyond the first working version.
+
+**What I did:** During a follow-up review, ChatGPT identified a potential spreadsheet formula-interpretation risk in exported CSV text. I authorized the improvement, and ChatGPT added an export-specific safeguard, **seven regression tests**, and a GitHub Actions reviewer-verification workflow. Some early CI runs failed because the workflow referenced a script that had not yet been committed; that dependency was fixed, and subsequent complete runs passed. An import-path error in the verification script was also corrected.
+
+**How I used AI:** ChatGPT investigated the problem, implemented changes, inspected GitHub Actions errors, and checked the resulting reports. I examined the results and requested another investigation when I noticed failed runs.
+
+**Outcome / lesson:** The suite grew to **21 passing automated tests**. I learned that AI-generated code needs security review, regression tests, and careful interpretation of CI failures. Automated CSV checks do **not** replace manual Excel save-and-reopen verification.
+
+**Evidence:** [CSV export module](csv_export.py) · [Regression tests](tests/test_csv_export.py) · [Successful CI run](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/runs/44113298195)
+
+## Day 5 — Review the final deliverables and reflect
+**Actual date: November 21, 2026**
+
+**Goal:** Compare the project against the complete published deliverables and prepare the required written artifacts.
+
+**What I did:** I reviewed the full requirements screenshot and discovered four documentation deliverables that were not included in the initial checklist: `intent.md`, `Final directive.md`, a short five-entry log, and a one-page note on what I unlearned. ChatGPT drafted these from the actual project history and added them to the repository; I continued reviewing the artifacts for reviewer-facing clarity.
+
+**How I used AI:** ChatGPT reconciled the revised checklist with the repository and drafted retrospective documents without inventing five separate workdays.
+
+**Outcome / lesson:** Clear evidence and honest attribution are part of engineering work. The code, README, and written artifacts are available; **the two separate required videos had not been recorded at the time this log was prepared**.
+
+**Evidence:** [Intent](intent.md) · [Final directive](Final%20directive.md) · [Unlearning reflection](UNLEARNED.md) · [AI build log](AI_BUILD_LOG.md)
+
+---
+
+**Scope of this record:** These entries summarize verified milestones across an accelerated build. They are **not contemporaneous logs from five different calendar days**. The tool applies deterministic Python rules at runtime; ChatGPT supported development, review, debugging, and documentation. All example candidate data is fictional.
