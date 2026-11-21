@@ -11,6 +11,20 @@ from csv_export import export_followups_csv
 
 ROOT = Path(__file__).resolve().parent
 SAMPLE = ROOT / "sample_hiring_board.csv"
+SAMPLE_REFERENCE_DATE = date(2026, 11, 17)  # date the fictional sample data was built for
+
+
+def show_table(df: pd.DataFrame) -> None:
+    """Full-width table that works across Streamlit versions.
+
+    `use_container_width` is deprecated in newer Streamlit releases in favor of
+    `width="stretch"`; older releases only understand the former.
+    """
+    try:
+        st.dataframe(df, hide_index=True, width="stretch")
+    except Exception:
+        st.dataframe(df, hide_index=True, use_container_width=True)
+
 
 st.set_page_config(page_title="Hiring Stall Alerter", page_icon="⏳", layout="wide")
 
@@ -21,9 +35,18 @@ st.write(
 )
 st.caption("Demo tool · No messages are sent · No AI API key required · Dates and priorities follow visible rules")
 
+st.subheader("1. Choose hiring-board data")
+source = st.radio("Data source", ["Try example data", "Upload a CSV"], horizontal=True)
+
+default_date = SAMPLE_REFERENCE_DATE if source == "Try example data" else date.today()
+
 with st.sidebar:
     st.header("Detection settings")
-    analysis_date = st.date_input("Analyze as of", value=date.today(), help="Use the date you want to check the pipeline.")
+    analysis_date = st.date_input(
+        "Analyze as of",
+        value=default_date,
+        help="The example data opens on its reference date (2026-11-17). Uploaded files default to today.",
+    )
     threshold = st.slider("Flag after this many days", min_value=1, max_value=30, value=7)
     st.info("Only active stages are checked. Hired, Rejected, Withdrawn, Closed, Declined and Not selected are excluded.")
     with st.expander("How priority works"):
@@ -33,9 +56,6 @@ with st.sidebar:
             "**Follow up**: all other flagged candidates. Within each level, candidates "
             "are ranked by days overdue, then by hiring stage."
         )
-
-st.subheader("1. Choose hiring-board data")
-source = st.radio("Data source", ["Try example data", "Upload a CSV"], horizontal=True)
 
 if source == "Try example data":
     raw_data = SAMPLE.read_bytes()
@@ -96,7 +116,7 @@ if search.strip():
     shown = shown[relevant.apply(lambda c: c.str.contains(text, case=False, regex=False)).any(axis=1)]
 
 st.caption("Priority order is based on the explicit rules in the sidebar; the first row should be addressed first.")
-st.dataframe(shown, hide_index=True, use_container_width=True)
+show_table(shown)
 st.caption("Spreadsheet safety: formula-like text in exported cells is neutralized for Excel-oriented viewing. Original values remain visible in the dashboard.")
 st.download_button(
     "⬇ Download prioritized follow-up CSV",

@@ -63,7 +63,7 @@
 
 **How I used AI:** ChatGPT reconciled the revised checklist with the repository and drafted retrospective documents without inventing five separate workdays.
 
-**Outcome / lesson:** Clear evidence and honest attribution are part of engineering work. The code, README, and written artifacts are available; **the two separate required videos had not been recorded at the time this log was prepared**.
+**Outcome / lesson:** Clear evidence and honest attribution are part of engineering work. The code, README, and written artifacts are available; the two required videos were not yet recorded at this point. Their status is shown in the [README](README.md#video-links).
 
 **Evidence:** [Intent](intent.md) · [Final directive](Final%20directive.md) · [Unlearning reflection](UNLEARNED.md) · [AI build log](AI_BUILD_LOG.md)
 

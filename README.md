@@ -6,9 +6,13 @@
 
 The app finds candidates who have stayed in an *active* hiring stage at or beyond a chosen threshold, orders the follow-up queue by clear rules, explains each flag, and recommends a next step for a recruiter to review. It does **not** make hiring decisions or send messages.
 
-![Hiring Stall Alerter dashboard, using fictional candidates](docs/dashboard.png)
+![Hiring Stall Alerter dashboard overview](docs/dashboard.png)
 
-*Partial screenshot of the locally verified dashboard (scrolled view).*
+*Dashboard overview — sample data, settings, and metrics.*
+
+![Hiring Stall Alerter follow-up queue](docs/dashboard_queue.png)
+
+*Follow-up queue — candidate priorities, explanations, and recommended actions.*
 
 ## Demo result
 
@@ -59,14 +63,15 @@ If `py` is unavailable, substitute `python -m venv .venv` in the first command.
 ## How to test the app
 
 1. Choose **Try example data**.
-2. Set the analysis date to `2026-11-17` and the threshold to **7** days.
+2. Confirm the analysis date is `2026-11-17` (the example data opens on this date) and the threshold is **7** days.
 3. Check the four reference metrics above.
 4. Change the threshold to **10**; the stalled count should decrease. Restore it to **7**.
 5. Search for `Maria Santos`, clear the search, and try the priority filter.
-6. Download the follow-up CSV and open it in Excel.
-7. As an extra test, upload a modified sample CSV containing an invalid `last_stage_change` date and check that the app reports a warning.
+6. Download the follow-up CSV and inspect it in a text editor.
+7. Optional: open the CSV in Excel, then save and reopen it.
+8. Optional: upload a modified sample CSV containing an invalid `last_stage_change` date and check that the app reports a warning.
 
-The first six checks were performed during the project walkthrough; the malformed-input UI example is a suggested follow-up check. Input validation is also covered by the automated tests.
+The reference metrics, threshold change, search/priority filter, and CSV download were checked manually on Windows. Opening the export in Excel (including a save-and-reopen cycle) and the malformed-input upload are suggested follow-up checks that are **not** recorded as completed. Input validation is also covered by the automated tests.
 
 ## CSV schema
 
@@ -116,32 +121,39 @@ Within each priority group, the app orders candidates by days beyond the limit, 
 |---|---|
 | `app.py` | Streamlit user interface |
 | `csv_export.py` | Spreadsheet-oriented CSV export safety boundary |
-| `sample_security_check.csv` | Fictional formula-like candidate names for manual export testing |
-| `tests/test_csv_export.py` | Export encoding and spreadsheet formula safety regression tests |
+| `sample_security_check.csv` | Fictional formula-like names for CSV export testing |
+| `tests/test_csv_export.py` | CSV export regression tests |
 | `scripts/reviewer_check.py` | Reference scenario verification and report generation |
-| `.github/workflows/reviewer-verification.yml` | GitHub Actions tests and evidence report; manual reruns require write access |
+| `.github/workflows/reviewer-verification.yml` | Automated tests and evidence on GitHub Actions |
 | `engine.py` | CSV checks, date calculations, priorities, actions |
 | `sample_hiring_board.csv` | Fictional sample hiring board |
 | `sample_followup_report.csv` | Reference output for the 2026-11-17 example |
 | `tests/test_engine.py` | Automated tests of the core logic |
 | `start_windows.bat` | Windows launcher |
+| `scripts/check_layout.py` | Checks expected files and local documentation links |
+| `docs/dashboard_queue.png` | Follow-up queue screenshot |
 | `AI_BUILD_LOG.md` | Actual AI-assisted development and testing record |
 | `WALKTHROUGH.md` | Reproducible local demo and test procedure |
 | `docs/dashboard.png` | Screenshot of the locally verified dashboard |
 
 ## Quest documentation
 
-The following artifacts accompany the working source code:
-
 | Document | Purpose |
 |---|---|
-| [`intent.md`](intent.md) | Retrospective statement of problem, scope, success criteria, and AI-first intent |
-| [`Final directive.md`](Final%20directive.md) | Current engineering handoff directive and safeguards |
-| [`FIVE_DAY_LOG.md`](FIVE_DAY_LOG.md) | Five checkpoint entries with actual activity dates, transparently noting the accelerated build |
-| [`UNLEARNED.md`](UNLEARNED.md) | One-page reflection on working-method changes and remaining gaps |
-| [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) | Detailed observed prompts, tests, failures, and corrections |
+| [`intent.md`](intent.md) | Retrospective problem statement, scope, and AI-first intent |
+| [`Final directive.md`](Final%20directive.md) | Engineering handoff requirements and safeguards |
+| [`FIVE_DAY_LOG.md`](FIVE_DAY_LOG.md) | Five checkpoint log with accurate activity dates |
+| [`UNLEARNED.md`](UNLEARNED.md) | One-page reflection on changed working habits |
+| [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) | Detailed AI development and validation record |
 
-The challenge also requires two **separate** recordings: a tool demonstration (maximum five minutes) and a career path/career leverage video (maximum five minutes). These are submitted as video links, not part of the executable source.
+### Video links
+
+Both videos have a **five-minute maximum**.
+
+| Video | Link |
+|---|---|
+| Quest Loom: tool demonstration | Recording pending; link will be added once available |
+| Career path & career leverage | Recording pending; link will be added once available |
 
 ## Run the automated tests
 
@@ -151,7 +163,7 @@ From inside this project directory:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-**21 automated tests passed in the development environment**: 14 original engine tests plus 7 CSV export regression tests. The reviewer workflow re-runs these tests and verifies the sample data. Three original manual UI checks were completed on Windows: threshold adjustment, search/filter, and CSV export. The updated spreadsheet-safety behavior still requires manual Excel testing.
+**21 automated tests passed**, including 14 original engine tests and 7 CSV export regression tests. The GitHub Actions workflow reruns these tests and verifies the reference data. Three manual UI checks were completed on Windows: threshold adjustment, search/filter, and CSV export. Spreadsheet export protection still requires manual Excel save-and-reopen verification.
 
 ## AI-first approach
 
@@ -161,15 +173,9 @@ The [`AI_BUILD_LOG.md`](AI_BUILD_LOG.md) records the development timeline, the r
 
 ## Reviewer verification — GitHub Actions
 
-The [Reviewer verification workflow](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml) runs on pushes, pull requests, and manual invocation. It executes the Python tests and a reproducible sample-data check. Its **Summary** tab contains the generated reference metrics; the **Artifacts** section contains a reference follow-up CSV, a harmless formula-input export, and a Markdown verification report.
+The [verification workflow](https://github.com/alvinjohn0417/hiring-stall-alerter/actions/workflows/reviewer-verification.yml) runs on pushes and pull requests. Its Summary tab shows the reference scenario and its downloadable artifact contains verification files. Public reviewers can inspect past runs; triggering new runs requires collaborator write access.
 
-Reviewers can inspect past runs and their public **Summary** results from the workflow link without installing Python. Repository collaborators with **write access** may also choose **Run workflow** on `main` to start a new run. A green status means automated checks passed; it does **not** certify how Microsoft Excel handles cells after a save-and-reopen cycle.
-
-The fictional `sample_security_check.csv` can be uploaded in the application to exercise formula-like names. The dashboard intentionally shows the original text. The **downloaded** CSV neutralizes formula-like cells for Excel-oriented viewing; manual Excel testing is still appropriate.
-
-### AI-assisted engineering iteration
-
-A review of the original CSV export identified a potential spreadsheet formula interpretation issue: values such as `=1+1` passed through the raw export as-is. ChatGPT assisted in moving export formatting into a separately testable `csv_export.py` module and adding seven regression tests. The detection engine and candidate priority rules were left unchanged. A development-time import-path error in `scripts/reviewer_check.py` was corrected, after which 21 tests and the sample-data check passed locally. See `AI_BUILD_LOG.md` for this actual iteration.
+The fictional `sample_security_check.csv` lets reviewers inspect the exported handling of harmless formula-like values. The dashboard preserves the original input text; the downloadable CSV reduces spreadsheet formula interpretation risk. This does not prove safety in every spreadsheet application or after saving and reopening in Excel.
 
 ## Limitations and safety
 
@@ -177,7 +183,7 @@ A review of the original CSV export identified a potential spreadsheet formula i
 - A stage's inactivity is measured solely from `last_stage_change`.
 - No emails are drafted/sent, no ATS records are modified, and no hiring decisions are automated.
 - Rules are fixed in code and should be reviewed against each organization's recruiting policy.
-- Exported spreadsheet CSVs prefix formula-like text with an embedded tab as a defense-in-depth measure. Spreadsheet importers differ; there is no guarantee against every re-save/re-import interpretation. This mitigation does not replace organizational data-handling controls.
+- Formula-like exported values receive a tab-prefix mitigation; behavior varies across spreadsheet applications and import/export workflows.
 - Use invented or authorized candidate records; do not publish private applicant information.
 
 This is an educational prototype for operational follow-up, not a candidate suitability/ranking system.
