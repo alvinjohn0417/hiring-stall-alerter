@@ -70,3 +70,7 @@
 ---
 
 **Scope of this record:** These entries summarize verified milestones across an accelerated build. They are **not contemporaneous logs from five different calendar days**. The tool applies deterministic Python rules at runtime; ChatGPT supported development, review, debugging, and documentation. All example candidate data is fictional.
+
+## Submission update — November 21, 2026
+
+The tool demonstration Loom was provided after the original log entry and is now linked in the [README's video section](README.md#video-links): [Hiring Stall Alerter tool demo](https://www.loom.com/share/7b299434f9ef4320930fe414faeaf813). The separate career path and career leverage video has not yet been supplied. This update preserves the original Day 5 status as a record of what was known at that time.
