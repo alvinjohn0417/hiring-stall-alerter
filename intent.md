@@ -1,7 +1,5 @@
 # Intent — Hiring Stall Alerter
 
-*Retrospective statement of the project intent, written after the initial build. This document is not presented as a Day 1 file created before development.*
-
 ## Problem
 
 Hiring teams can lose track of candidates who remain in one pipeline stage without a recorded update. Checking a hiring board manually requires repeated date comparisons and prioritization decisions.
